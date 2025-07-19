@@ -1,7 +1,21 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  reactStrictMode: true,
 
-export default nextConfig;
+  webpackDevMiddleware: (config) => {
+    config.watchOptions = {
+      ignored: [
+        '**/.git/**',
+        '**/.next/**',
+        '**/node_modules/**',
+        '**/*.log',
+        '**/.env*',
+        '**/logs/**',
+      ],
+    }
+    return config
+  },
+}
+
+export default nextConfig

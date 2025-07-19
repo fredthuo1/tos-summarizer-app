@@ -1,0 +1,4 @@
+{"at":"2025-07-19T21:24:07.063Z","level":"info","message":"[Together] Analysis request started","timestamp":"2025-07-19T21:24:07.064Z"}
+{"level":"info","message":"[Together] Input type: file (99174ae2-7ef7-43fa-9226-40db66d65863.pdf)","timestamp":"2025-07-19T21:24:07.088Z"}
+{"error":{"code":null,"message":"Input validation error: `inputs` tokens + `max_new_tokens` must be <= 8193. Given: 17823 `inputs` tokens and 2048 `max_new_tokens`","param":null,"type":"invalid_request_error"},"id":"o3k6UQr-62bZhn-961d48aa6d25dd95","level":"error","message":"[Together] API error","timestamp":"2025-07-19T21:24:08.173Z"}
+{"error":"Error: Together.ai API error","level":"error","message":"[Together] Analysis failed","timestamp":"2025-07-19T21:24:08.174Z"}
