@@ -1,10 +1,20 @@
-export function mergeResults(results: any[]) {
-  const dedupe = (arr: string[]) => [...new Set(arr)];
+type Analysis = {
+  summary: string;
+  red_flags: string[];
+  financial_clauses: string[];
+  recommendations: string[];
+};
+
+export function mergeResults(results: Analysis[]): Analysis {
+  const summary = results.map(r => r.summary).join('\n\n');
+  const red_flags = Array.from(new Set(results.flatMap(r => r.red_flags)));
+  const financial_clauses = Array.from(new Set(results.flatMap(r => r.financial_clauses)));
+  const recommendations = Array.from(new Set(results.flatMap(r => r.recommendations)));
 
   return {
-    summary: results.map(r => r.summary).join(' '),
-    red_flags: dedupe(results.flatMap(r => r.red_flags || [])),
-    financial_clauses: dedupe(results.flatMap(r => r.financial_clauses || [])),
-    recommendations: dedupe(results.flatMap(r => r.recommendations || [])),
+    summary,
+    red_flags,
+    financial_clauses,
+    recommendations,
   };
 }

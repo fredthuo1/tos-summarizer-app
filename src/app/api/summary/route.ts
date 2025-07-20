@@ -186,7 +186,7 @@ async function analyzeChunk(content: string) {
   } catch {
     logger.warn(`[Together] Failed to parse JSON`);
     return {
-      summary: '',
+      summary: "No summary provided.",
       red_flags: [],
       financial_clauses: [],
       recommendations: [],
