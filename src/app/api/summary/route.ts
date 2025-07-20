@@ -57,6 +57,13 @@ If a section (summary, red_flags, financial_clauses, recommendations) cannot be 
 Here is the Terms of Service document to analyze:
 `;
 
+type Analysis = {
+  summary: string;
+  red_flags: string[];
+  financial_clauses: string[];
+  recommendations: string[];
+};
+
 export async function POST(req: Request) {
   const startTime = Date.now();
   logger.info(`[API] Request started`, { timestamp: new Date().toISOString() });
@@ -105,7 +112,7 @@ export async function POST(req: Request) {
   const chunks = splitIntoChunks(sanitized);
   logger.info(`[API] Chunk count: ${chunks.length}`);
 
-  const partials = [];
+  const partials: Analysis[] = [];
   for (const [i, chunk] of chunks.entries()) {
     logger.info(`[API] Analyzing chunk ${i + 1}/${chunks.length}`);
     const result = await analyzeChunk(chunk);
@@ -156,7 +163,7 @@ function splitIntoChunks(text: string, maxChars = 12000): string[] {
   return chunks;
 }
 
-async function analyzeChunk(content: string) {
+async function analyzeChunk(content: string): Promise<Analysis> {
   const res = await fetch(TOGETHER_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -186,7 +193,7 @@ async function analyzeChunk(content: string) {
   } catch {
     logger.warn(`[Together] Failed to parse JSON`);
     return {
-      summary: "No summary provided.",
+      summary: '',
       red_flags: [],
       financial_clauses: [],
       recommendations: [],
@@ -194,7 +201,7 @@ async function analyzeChunk(content: string) {
   }
 }
 
-function mergeResults(results: any[]) {
+function mergeResults(results: Analysis[]): Analysis {
   const dedup = (arr: string[]) => [...new Set(arr)];
   return {
     summary: results.map(r => r.summary).join(' '),
