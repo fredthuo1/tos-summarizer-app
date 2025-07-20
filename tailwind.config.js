@@ -1,16 +1,15 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
-      colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
-      },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'Arial', 'sans-serif'],
-        mono: ['var(--font-geist-mono)', 'monospace'],
+        sans: ['Geist', 'sans-serif'],
+        mono: ['Geist Mono', 'monospace'],
       },
     },
   },
-  darkMode: 'media', // or 'class'
   plugins: [],
-}
+};
