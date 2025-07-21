@@ -23,14 +23,19 @@ export default function TosSummaryTool() {
     const [redacted, setRedacted] = useState<string[]>([]);
     const [darkMode, setDarkMode] = useState(false);
 
+    // 🔷 Load dark mode from localStorage or default to dark
     useEffect(() => {
         const stored = localStorage.getItem('darkMode');
-        if (stored === 'true') {
+        if (stored === null || stored === 'true') {
             setDarkMode(true);
             document.documentElement.classList.add('dark');
+        } else {
+            setDarkMode(false);
+            document.documentElement.classList.remove('dark');
         }
     }, []);
 
+    // 🔷 Sync dark mode changes
     useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add('dark');
@@ -206,21 +211,15 @@ export default function TosSummaryTool() {
                                 animate={{ opacity: 1 }}
                                 className="space-y-4"
                             >
-                                {/* 📄 Summary */}
-                                <div className="bg-blue-50 dark:bg-blue-900 rounded-md p-4 border border-blue-100 dark:border-blue-700">
-                                    <h2 className="font-semibold text-blue-800 dark:text-blue-200">
-                                        📄 Summary:
-                                    </h2>
-                                    <p className="text-sm text-blue-800 dark:text-blue-100 mt-1 whitespace-pre-wrap">
+                                <div className="bg-gray-100 dark:bg-gray-700 rounded-md p-4">
+                                    <h2 className="font-semibold text-gray-700 dark:text-gray-200">Summary:</h2>
+                                    <p className="text-sm text-gray-800 dark:text-gray-300 mt-1 whitespace-pre-wrap">
                                         {analysis.summary || 'No summary provided.'}
                                     </p>
                                 </div>
 
-                                {/* 🚨 Red Flags */}
-                                <div className="bg-red-50 dark:bg-red-900 rounded-md p-4 border border-red-100 dark:border-red-700">
-                                    <h2 className="font-semibold text-red-800 dark:text-red-200">
-                                        🚨 Red Flags:
-                                    </h2>
+                                <div className="bg-red-100 dark:bg-red-800 rounded-md p-4">
+                                    <h2 className="font-semibold text-red-700 dark:text-red-200">Red Flags:</h2>
                                     <ul className="list-disc list-inside text-sm text-red-800 dark:text-red-100 space-y-1 mt-1">
                                         {(analysis.red_flags?.length
                                             ? analysis.red_flags
@@ -231,11 +230,8 @@ export default function TosSummaryTool() {
                                     </ul>
                                 </div>
 
-                                {/* 💸 Financial Clauses */}
-                                <div className="bg-yellow-50 dark:bg-yellow-900 rounded-md p-4 border border-yellow-100 dark:border-yellow-700">
-                                    <h2 className="font-semibold text-yellow-800 dark:text-yellow-200">
-                                        💸 Financial Clauses:
-                                    </h2>
+                                <div className="bg-yellow-100 dark:bg-yellow-700 rounded-md p-4">
+                                    <h2 className="font-semibold text-yellow-700 dark:text-yellow-200">Financial Clauses:</h2>
                                     <ul className="list-disc list-inside text-sm text-yellow-800 dark:text-yellow-100 space-y-1 mt-1">
                                         {(analysis.financial_clauses?.length
                                             ? analysis.financial_clauses
@@ -246,11 +242,8 @@ export default function TosSummaryTool() {
                                     </ul>
                                 </div>
 
-                                {/* 💡 Recommendations */}
-                                <div className="bg-green-50 dark:bg-green-900 rounded-md p-4 border border-green-100 dark:border-green-700">
-                                    <h2 className="font-semibold text-green-800 dark:text-green-200">
-                                        💡 Recommendations:
-                                    </h2>
+                                <div className="bg-green-100 dark:bg-green-800 rounded-md p-4">
+                                    <h2 className="font-semibold text-green-700 dark:text-green-200">Recommendations:</h2>
                                     <ul className="list-disc list-inside text-sm text-green-800 dark:text-green-100 space-y-1 mt-1">
                                         {(analysis.recommendations?.length
                                             ? analysis.recommendations
