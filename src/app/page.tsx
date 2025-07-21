@@ -1,6 +1,4 @@
-﻿import TosSummaryTool from '@/app/components/TosSummaryTool';
-
-console.log('✅ Rendering Home page on the server');
+﻿import TosSummaryTool from './components/TosSummaryTool';
 
 export default function Home() {
     return (
