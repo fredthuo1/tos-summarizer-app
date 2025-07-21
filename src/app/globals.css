@@ -5,7 +5,7 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
-    --font-sans: var(--font-geist-sans, Arial, sans-serif);
+    --font-sans: var(--font-geist-sans, Arial);
     --font-mono: var(--font-geist-mono, monospace);
 }
 
