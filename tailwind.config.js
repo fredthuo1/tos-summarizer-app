@@ -14,11 +14,6 @@ const config: Config = {
                 sans: ['var(--font-geist-sans)', 'ui-sans-serif', 'system-ui'],
                 mono: ['var(--font-geist-mono)', 'ui-monospace', 'SFMono-Regular'],
             },
-            colors: {
-                'red-flag': '#dc2626',      // dark red for red flags
-                'financial': '#ca8a04',     // yellow for financial
-                'recommendation': '#15803d' // green for recommendations
-            }
         },
     },
     plugins: [],
