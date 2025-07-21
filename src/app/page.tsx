@@ -1,4 +1,4 @@
-import TosSummaryTool from './components/TosSummaryTool';
+import TosSummaryTool from '@/app/components/TosSummaryTool';
 
 export default function Home() {
     return (
