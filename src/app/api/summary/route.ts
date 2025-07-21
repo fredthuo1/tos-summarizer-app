@@ -1,15 +1,15 @@
 ﻿import { NextResponse } from 'next/server';
 import mammoth from 'mammoth';
-import pdf from 'pdf-parse/lib/pdf-parse';
+import pdf from 'pdf-parse'; 
 import winston from 'winston';
 
 const TOGETHER_API_KEY = process.env.TOGETHER_API_KEY!;
 const TOGETHER_ENDPOINT = 'https://api.together.xyz/v1/chat/completions';
 
 const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
-  transports: [new winston.transports.Console()],
+    level: 'info',
+    format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+    transports: [new winston.transports.Console()],
 });
 
 const systemPrompt = `
