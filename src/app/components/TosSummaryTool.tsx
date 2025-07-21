@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { sendAnalysisRequest } from '../lib/api';
 
 type Analysis = {
@@ -23,7 +24,6 @@ export default function TosSummaryTool() {
     const [redacted, setRedacted] = useState<string[]>([]);
     const [darkMode, setDarkMode] = useState(false);
 
-    // 🔷 Load dark mode from localStorage or default to dark
     useEffect(() => {
         const stored = localStorage.getItem('darkMode');
         if (stored === null || stored === 'true') {
@@ -35,7 +35,6 @@ export default function TosSummaryTool() {
         }
     }, []);
 
-    // 🔷 Sync dark mode changes
     useEffect(() => {
         if (darkMode) {
             document.documentElement.classList.add('dark');
@@ -81,7 +80,16 @@ export default function TosSummaryTool() {
 
     return (
         <div className="min-h-screen flex flex-col transition-colors duration-300 bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
-            {/* Top Banner */}
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar
+                newestOnTop
+                closeOnClick
+                pauseOnHover
+                theme={darkMode ? 'dark' : 'light'}
+            />
+
             <div className="bg-blue-100 dark:bg-blue-800 text-center py-2 text-sm text-blue-800 dark:text-blue-100 font-medium flex justify-between px-4">
                 📢 Terms of Service Analyzer
                 <button
@@ -93,7 +101,6 @@ export default function TosSummaryTool() {
             </div>
 
             <div className="flex flex-1">
-                {/* Left Ad */}
                 <div className="hidden lg:flex lg:flex-col w-32 bg-blue-50 dark:bg-blue-900 p-2 justify-center items-center text-xs text-blue-600 dark:text-blue-200">
                     Left Ad
                 </div>
@@ -209,18 +216,22 @@ export default function TosSummaryTool() {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="space-y-4"
+                                className="space-y-6"
                             >
-                                <div className="bg-gray-100 dark:bg-gray-700 rounded-md p-4">
-                                    <h2 className="font-semibold text-gray-700 dark:text-gray-200">Summary:</h2>
-                                    <p className="text-sm text-gray-800 dark:text-gray-300 mt-1 whitespace-pre-wrap">
+                                <div className="section-summary rounded-md p-4">
+                                    <h2 className="relative flex items-center gap-2 text-lg font-semibold">
+                                        📄 Summary
+                                    </h2>
+                                    <p className="section-content mt-2 whitespace-pre-wrap leading-relaxed">
                                         {analysis.summary || 'No summary provided.'}
                                     </p>
                                 </div>
 
-                                <div className="bg-red-100 dark:bg-red-800 rounded-md p-4">
-                                    <h2 className="font-semibold text-red-700 dark:text-red-200">Red Flags:</h2>
-                                    <ul className="list-disc list-inside text-sm text-red-800 dark:text-red-100 space-y-1 mt-1">
+                                <div className="section-redflags rounded-md p-4">
+                                    <h2 className="relative flex items-center gap-2 text-lg font-semibold">
+                                        🚨 Red Flags
+                                    </h2>
+                                    <ul className="list-disc section-content space-y-1 mt-2 leading-relaxed">
                                         {(analysis.red_flags?.length
                                             ? analysis.red_flags
                                             : ['No red flags detected.']
@@ -230,9 +241,11 @@ export default function TosSummaryTool() {
                                     </ul>
                                 </div>
 
-                                <div className="bg-yellow-100 dark:bg-yellow-700 rounded-md p-4">
-                                    <h2 className="font-semibold text-yellow-700 dark:text-yellow-200">Financial Clauses:</h2>
-                                    <ul className="list-disc list-inside text-sm text-yellow-800 dark:text-yellow-100 space-y-1 mt-1">
+                                <div className="section-financial rounded-md p-4">
+                                    <h2 className="relative flex items-center gap-2 text-lg font-semibold">
+                                        💰 Financial Clauses
+                                    </h2>
+                                    <ul className="list-disc section-content space-y-1 mt-2 leading-relaxed">
                                         {(analysis.financial_clauses?.length
                                             ? analysis.financial_clauses
                                             : ['No financial clauses detected.']
@@ -242,9 +255,11 @@ export default function TosSummaryTool() {
                                     </ul>
                                 </div>
 
-                                <div className="bg-green-100 dark:bg-green-800 rounded-md p-4">
-                                    <h2 className="font-semibold text-green-700 dark:text-green-200">Recommendations:</h2>
-                                    <ul className="list-disc list-inside text-sm text-green-800 dark:text-green-100 space-y-1 mt-1">
+                                <div className="section-recommendations rounded-md p-4">
+                                    <h2 className="relative flex items-center gap-2 text-lg font-semibold">
+                                        🌟 Recommendations
+                                    </h2>
+                                    <ul className="list-disc section-content space-y-1 mt-2 leading-relaxed">
                                         {(analysis.recommendations?.length
                                             ? analysis.recommendations
                                             : ['No recommendations provided.']
@@ -258,7 +273,6 @@ export default function TosSummaryTool() {
                     </motion.div>
                 </main>
 
-                {/* Right Ad */}
                 <div className="hidden lg:flex lg:flex-col w-32 bg-blue-50 dark:bg-blue-900 p-2 justify-center items-center text-xs text-blue-600 dark:text-blue-200">
                     Right Ad
                 </div>

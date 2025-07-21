@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ✅ Tailwind CSS variables and preflight (your version preserved) */
+/* ✅ Tailwind CSS variables and preflight (your version preserved) */
 *, ::backdrop, :after, :before {
     --tw-border-spacing-x: 0;
     --tw-border-spacing-y: 0;
@@ -54,7 +56,7 @@
     --tw-contain-size:;
     --tw-contain-layout:;
     --tw-contain-paint:;
-    --tw-contain-style:
+    --tw-contain-style:;
 }
 /*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/
 
@@ -615,6 +617,77 @@ img, video {
 .dark\:text-gray-300:is(.dark *) {
     --tw-text-opacity: 1;
     color: rgb(209 213 219/var(--tw-text-opacity,1))
+}
+
+/* 🆕 Section heading dividers */
+h2.relative::before,
+h2.relative::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background-color: #d1d5db; /* gray-300 */
+    flex: 1;
+}
+
+.dark h2.relative::before,
+.dark h2.relative::after {
+    background-color: #4b5563; /* gray-600 */
+}
+
+/* 🆕 Improve readability of lists */
+ul.list-disc {
+    padding-left: 1rem;
+}
+
+    ul.list-disc li {
+        margin-bottom: 0.25rem;
+        line-height: 1.5;
+    }
+
+/* 🆕 Optional: slightly increase font weight for colored section paragraphs */
+.section-content {
+    font-weight: 500;
+}
+
+/* 🎨 Section backgrounds & text colors */
+.section-summary {
+    background-color: #e0f2fe; /* light blue */
+    color: #075985; /* dark blue text */
+}
+
+.dark .section-summary {
+    background-color: #1e3a8a; /* dark blue */
+    color: #dbeafe; /* light blue text */
+}
+
+.section-redflags {
+    background-color: #fee2e2; /* light red */
+    color: #991b1b; /* dark red text */
+}
+
+.dark .section-redflags {
+    background-color: #7f1d1d; /* dark red */
+    color: #fee2e2; /* light red text */
+}
+
+.section-financial {
+    background-color: #fef9c3; /* light yellow */
+    color: #92400e; /* dark yellow/brown text */
+}
+
+.dark .section-financial {
+    background-color: #78350f; /* dark yellow */
+    color: #fef9c3; /* light yellow text */
+}
+
+.section-recommendations {
+    background-color: #dcfce7; /* light green */
+    color: #065f46; /* dark green text */
+}
+
+.dark .section-recommendations {
+    background-color: #064e3b; /* dark green */
+    color: #d1fae5; /* light green text */
 }
 
 @media (min-width:1024px) {
