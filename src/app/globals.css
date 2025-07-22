@@ -83,7 +83,8 @@
 
 body {
     margin: 0;
-    line-height: inherit
+    line-height: inherit;
+    height: 100%;
 }
 
 hr {

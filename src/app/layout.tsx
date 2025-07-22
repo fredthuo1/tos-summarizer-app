@@ -1,8 +1,9 @@
 ﻿import './globals.css';
 import Script from 'next/script';
+import React from 'react';
 
 export const metadata = {
-    title: 'ToS Summarizer',
+    title: '📄 Terms of Service Analyzer',
     description: 'Analyze Terms of Service documents with AI',
 };
 
@@ -13,7 +14,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <head>
+            <head> 
                 <Script
                     id="adsbygoogle-init"
                     async

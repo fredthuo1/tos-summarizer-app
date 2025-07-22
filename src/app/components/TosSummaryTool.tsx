@@ -6,7 +6,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { sendAnalysisRequest } from '../lib/api';
 import AdUnit from './AdUnit';
-import Head from 'next/head';
 
 type Analysis = {
     summary: string;
@@ -87,12 +86,7 @@ export default function TosSummaryTool() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col transition-colors duration-300 bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
-            <Head>
-                <title>Terms of Service Analyzer</title>
-                <meta name="description" content="Analyze Terms of Service documents with AI" />
-            </Head>
-
+        <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -103,7 +97,7 @@ export default function TosSummaryTool() {
                 theme={darkMode ? 'dark' : 'light'}
             />
 
-            <div className="bg-blue-100 dark:bg-blue-800 text-center py-2 text-sm text-blue-800 dark:text-blue-100 font-medium flex justify-between px-4">
+            <header className="bg-blue-100 dark:bg-blue-800 text-center py-2 text-sm text-blue-800 dark:text-blue-100 font-medium flex justify-between px-4">
                 📢 Terms of Service Analyzer
                 <button
                     onClick={() => setDarkMode(!darkMode)}
@@ -111,27 +105,24 @@ export default function TosSummaryTool() {
                 >
                     Toggle {darkMode ? 'Light' : 'Dark'} Mode
                 </button>
-            </div>
+            </header>
 
             <div className="flex flex-1 min-h-0">
-                <div className="hidden lg:flex lg:flex-col w-32 bg-blue-50 dark:bg-blue-900 p-2 justify-center items-center text-xs text-blue-600 dark:text-blue-200">
+                <aside className="hidden lg:flex lg:flex-col w-32 bg-blue-50 dark:bg-blue-900 p-2 justify-center items-center text-xs text-blue-600 dark:text-blue-200">
                     <AdUnit slot="3117786140" />
-                </div>
+                </aside>
 
-                <main className="flex-1 p-4 max-w-4xl mx-auto flex flex-col justify-center">
+                <main className="flex-1 flex flex-col justify-center p-4 max-w-4xl mx-auto w-full">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4 }}
-                        className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6"
+                        className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6 flex flex-col flex-1"
                     >
                         <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100">
                             📄 Terms of Service Analyzer
                         </h1>
-                        <Head>
-                            <title>📄 Terms of Service Analyzer</title>
-                            <meta name="description" content="Analyze Terms of Service documents with AI" />
-                        </Head>
+
                         <p className="text-center text-gray-600 dark:text-gray-300 text-sm">
                             Paste text, enter a URL, or upload a file — get an AI-powered analysis.
                         </p>
@@ -290,14 +281,14 @@ export default function TosSummaryTool() {
                     </motion.div>
                 </main>
 
-                <div className="hidden lg:flex lg:flex-col w-32 bg-blue-50 dark:bg-blue-900 p-2 justify-center items-center text-xs text-blue-600 dark:text-blue-200">
+                <aside className="hidden lg:flex lg:flex-col w-32 bg-blue-50 dark:bg-blue-900 p-2 justify-center items-center text-xs text-blue-600 dark:text-blue-200">
                     <AdUnit slot="6117368473" />
-                </div>
+                </aside>
             </div>
 
-            <div className="bg-blue-100 dark:bg-blue-800 text-center py-2 text-sm text-blue-800 dark:text-blue-100">
+            <footer className="bg-blue-100 dark:bg-blue-800 text-center py-2 text-sm text-blue-800 dark:text-blue-100">
                 <AdUnit slot="3226469499" />
-            </div>
+            </footer>
         </div>
     );
 }
