@@ -2,18 +2,20 @@
   "name": "tos-summarizer-app",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "postinstall": "patch-package"
-  },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "postinstall": "patch-package",
+        "postbuild": "next-sitemap"
+    },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
     "framer-motion": "^12.23.6",
     "mammoth": "^1.9.1",
     "next": "15.4.1",
+    "next-sitemap": "^4.2.3",
     "openai": "^5.10.1",
     "pdf-parse": "^1.1.1",
     "react": "19.1.0",

@@ -1,10 +1,16 @@
-﻿import './globals.css';
-import Script from 'next/script';
+﻿// 🚫 DO NOT add `use client` here!
+import './globals.css';
 import React from 'react';
 
 export const metadata = {
     title: '📄 Terms of Service Analyzer',
     description: 'Analyze Terms of Service documents with AI',
+    openGraph: {
+        title: '📄 Terms of Service Analyzer',
+        description: 'Analyze Terms of Service documents with AI',
+        type: 'website',
+        url: 'https://termsreviewer.com/',
+    },
 };
 
 export default function RootLayout({
@@ -14,15 +20,6 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <head> 
-                <Script
-                    id="adsbygoogle-init"
-                    async
-                    strategy="afterInteractive"
-                    crossOrigin="anonymous"
-                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8588865009381819"
-                />
-            </head>
             <body>{children}</body>
         </html>
     );

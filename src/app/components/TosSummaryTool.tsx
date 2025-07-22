@@ -119,9 +119,11 @@ export default function TosSummaryTool() {
                         transition={{ duration: 0.4 }}
                         className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6 flex flex-col flex-1"
                     >
-                        <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100">
-                            📄 Terms of Service Analyzer
-                        </h1>
+
+                        <section aria-labelledby="analyzer-heading">
+                            <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100">📄 Terms of Service Analyzer</h1>
+                            <p>Paste text, enter a URL, or upload a file …</p>
+                        </section>
 
                         <p className="text-center text-gray-600 dark:text-gray-300 text-sm">
                             Paste text, enter a URL, or upload a file — get an AI-powered analysis.

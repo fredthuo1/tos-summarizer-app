@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://termsreviewer.com/
+
+# Sitemaps
+Sitemap: https://termsreviewer.com/sitemap.xml
