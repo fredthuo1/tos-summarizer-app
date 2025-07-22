@@ -115,7 +115,7 @@ export default function TosSummaryTool() {
 
             <div className="flex flex-1 min-h-0">
                 <div className="hidden lg:flex lg:flex-col w-32 bg-blue-50 dark:bg-blue-900 p-2 justify-center items-center text-xs text-blue-600 dark:text-blue-200">
-                    <AdUnit slot="3117786140" fallback="Your ad here" />
+                    <AdUnit slot="3117786140" />
                 </div>
 
                 <main className="flex-1 p-4 max-w-4xl mx-auto flex flex-col justify-center">
@@ -291,12 +291,12 @@ export default function TosSummaryTool() {
                 </main>
 
                 <div className="hidden lg:flex lg:flex-col w-32 bg-blue-50 dark:bg-blue-900 p-2 justify-center items-center text-xs text-blue-600 dark:text-blue-200">
-                    <AdUnit slot="6117368473" fallback="Your ad here" />
+                    <AdUnit slot="6117368473" />
                 </div>
             </div>
 
             <div className="bg-blue-100 dark:bg-blue-800 text-center py-2 text-sm text-blue-800 dark:text-blue-100">
-                <AdUnit slot="3226469499" fallback="Your ad here" />
+                <AdUnit slot="3226469499" />
             </div>
         </div>
     );
