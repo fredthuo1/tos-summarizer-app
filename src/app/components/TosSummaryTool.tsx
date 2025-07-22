@@ -122,7 +122,7 @@ export default function TosSummaryTool() {
 
                         <section aria-labelledby="analyzer-heading">
                             <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100">📄 Terms of Service Analyzer</h1>
-                            <p>Paste text, enter a URL, or upload a file …</p>
+                            <p className="text-center">Paste text, enter a URL, or upload a file …</p>
                         </section>
 
                         <p className="text-center text-gray-600 dark:text-gray-300 text-sm">
