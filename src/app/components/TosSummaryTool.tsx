@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { sendAnalysisRequest } from '../lib/api';
 import AdUnit from './AdUnit';
+import WhatWeDo from './WhatWeDo';
 
 type Analysis = {
     summary: string;
@@ -24,6 +25,20 @@ export default function TosSummaryTool() {
     const [error, setError] = useState('');
     const [redacted, setRedacted] = useState<string[]>([]);
     const [darkMode, setDarkMode] = useState(false);
+
+    const carouselItems = [
+        `⚖️ Understanding Terms of Service is critical because you’re often agreeing to more than you think. Many companies include clauses about data collection, third-party sharing, and limitations on your rights. Reading and understanding these before clicking "Agree" can save you from surprises.`,
+
+        `🔍 Hidden clauses like **automatic subscription renewals**, **binding arbitration agreements**, and even restrictions on class-action lawsuits are increasingly common. This means you could be waiving rights unknowingly — always look for these red flags before accepting.`,
+
+        `📜 Keeping a copy of the Terms you’ve agreed to is a smart move. Companies often update their terms without clear notification, and having your own record lets you challenge unfair retroactive changes if needed. Save PDFs or screenshots for your own files.`,
+
+        `💡 This AI-powered analyzer reviews legal documents for you, breaking them into plain language summaries. It highlights high-risk clauses, explains financial obligations, and gives actionable recommendations — so you can make informed decisions quickly.`,
+
+        `✅ Take control of your online agreements. Don’t blindly agree — use tools like this one to understand what you’re signing up for, protect your privacy, and avoid potential financial or legal pitfalls in the future.`,
+    ];
+
+    const [carouselIndex, setCarouselIndex] = useState(0);
 
     useEffect(() => {
         const stored = localStorage.getItem('darkMode');
@@ -45,6 +60,13 @@ export default function TosSummaryTool() {
             localStorage.setItem('darkMode', 'false');
         }
     }, [darkMode]);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCarouselIndex(prev => (prev + 1) % carouselItems.length);
+        }, 7000);
+        return () => clearInterval(timer);
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -120,14 +142,14 @@ export default function TosSummaryTool() {
                         className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 space-y-6 flex flex-col flex-1"
                     >
 
-                        <section aria-labelledby="analyzer-heading">
+                        <section>
                             <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-gray-100">📄 Terms of Service Analyzer</h1>
-                            <p className="text-center">Paste text, enter a URL, or upload a file …</p>
+                            <p className="text-center text-gray-600 dark:text-gray-300 text-sm">
+                                Paste text, enter a URL, or upload a file — get an AI-powered analysis.
+                            </p>
                         </section>
 
-                        <p className="text-center text-gray-600 dark:text-gray-300 text-sm">
-                            Paste text, enter a URL, or upload a file — get an AI-powered analysis.
-                        </p>
+                        <WhatWeDo />
 
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <input
@@ -205,81 +227,76 @@ export default function TosSummaryTool() {
                             )}
                         </AnimatePresence>
 
-                        {redacted.length > 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="bg-gray-50 dark:bg-gray-700 p-4 rounded-md border border-gray-200 dark:border-gray-600"
-                            >
-                                <h2 className="font-semibold text-gray-700 dark:text-gray-200 mb-2">
-                                    🔒 Redacted Information:
-                                </h2>
-                                <ul className="list-disc list-inside text-sm text-gray-800 dark:text-gray-300 space-y-1">
-                                    {redacted.map((item, idx) => (
-                                        <li key={idx}>{item}</li>
-                                    ))}
+                        <section className="mt-8">
+                            <div>
+                                <h2 className="text-lg text-center font-semibold mb-4">💡 Tips & Insights</h2>
+                            </div>
+                            <div className="relative overflow-hidden rounded-md shadow-md bg-gray-100 dark:bg-gray-700">
+                                <motion.div
+                                    key={carouselIndex}
+                                    initial={{ x: 300, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    exit={{ x: -300, opacity: 0 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="p-4 text-center"
+                                >
+                                    <p className="text-sm">{carouselItems[carouselIndex]}</p>
+                                </motion.div>
+                            </div>
+                            <div className="flex justify-center gap-2 mt-2">
+                                {carouselItems.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setCarouselIndex(idx)}
+                                        className={`w-2 h-2 rounded-full ${carouselIndex === idx ? 'bg-blue-600' : 'bg-gray-400'
+                                            }`}
+                                        aria-label={`Slide ${idx + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        </section>
+
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="space-y-6"
+                        >
+                            <div className="section-summary rounded-md p-4">
+                                <h2 className="text-lg font-semibold">📄 Summary</h2>
+                                <p>{analysis?.summary || 'No analysis yet. Submit a document to generate a summary.'}</p>
+                            </div>
+
+                            <div className="section-redflags rounded-md p-4">
+                                <h2 className="text-lg font-semibold">🚨 Red Flags</h2>
+                                <ul className="list-disc ml-4">
+                                    {(analysis?.red_flags?.length
+                                        ? analysis.red_flags
+                                        : ['No analysis yet. Submit a document to find potential red flags.']
+                                    ).map((item, idx) => <li key={idx}>{item}</li>)}
                                 </ul>
-                            </motion.div>
-                        )}
+                            </div>
 
-                        {analysis && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="space-y-6"
-                            >
-                                <div className="section-summary rounded-md p-4">
-                                    <h2 className="relative flex items-center gap-2 text-lg font-semibold">
-                                        📄 Summary
-                                    </h2>
-                                    <p className="section-content mt-2 whitespace-pre-wrap leading-relaxed">
-                                        {analysis.summary || 'No summary provided.'}
-                                    </p>
-                                </div>
+                            <div className="section-financial rounded-md p-4">
+                                <h2 className="text-lg font-semibold">💰 Financial Clauses</h2>
+                                <ul className="list-disc ml-4">
+                                    {(analysis?.financial_clauses?.length
+                                        ? analysis.financial_clauses
+                                        : ['No analysis yet. Submit a document to detect financial clauses.']
+                                    ).map((item, idx) => <li key={idx}>{item}</li>)}
+                                </ul>
+                            </div>
 
-                                <div className="section-redflags rounded-md p-4">
-                                    <h2 className="relative flex items-center gap-2 text-lg font-semibold">
-                                        🚨 Red Flags
-                                    </h2>
-                                    <ul className="list-disc section-content space-y-1 mt-2 leading-relaxed">
-                                        {(analysis.red_flags?.length
-                                            ? analysis.red_flags
-                                            : ['No red flags detected.']
-                                        ).map((flag, idx) => (
-                                            <li key={idx}>{flag}</li>
-                                        ))}
-                                    </ul>
-                                </div>
+                            <div className="section-recommendations rounded-md p-4">
+                                <h2 className="text-lg font-semibold">🌟 Recommendations</h2>
+                                <ul className="list-disc ml-4">
+                                    {(analysis?.recommendations?.length
+                                        ? analysis.recommendations
+                                        : ['No analysis yet. Submit a document to receive recommendations.']
+                                    ).map((item, idx) => <li key={idx}>{item}</li>)}
+                                </ul>
+                            </div>
+                        </motion.div>
 
-                                <div className="section-financial rounded-md p-4">
-                                    <h2 className="relative flex items-center gap-2 text-lg font-semibold">
-                                        💰 Financial Clauses
-                                    </h2>
-                                    <ul className="list-disc section-content space-y-1 mt-2 leading-relaxed">
-                                        {(analysis.financial_clauses?.length
-                                            ? analysis.financial_clauses
-                                            : ['No financial clauses detected.']
-                                        ).map((clause, idx) => (
-                                            <li key={idx}>{clause}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                <div className="section-recommendations rounded-md p-4">
-                                    <h2 className="relative flex items-center gap-2 text-lg font-semibold">
-                                        🌟 Recommendations
-                                    </h2>
-                                    <ul className="list-disc section-content space-y-1 mt-2 leading-relaxed">
-                                        {(analysis.recommendations?.length
-                                            ? analysis.recommendations
-                                            : ['No recommendations provided.']
-                                        ).map((rec, idx) => (
-                                            <li key={idx}>{rec}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </motion.div>
-                        )}
                     </motion.div>
                 </main>
 
